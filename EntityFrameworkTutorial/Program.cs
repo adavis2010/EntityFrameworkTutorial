@@ -6,29 +6,46 @@ namespace EntityFrameworkTutorial {
     class Program {
         static void Main(string[] args) {
 
+        
+
+            
+
+
+
             //Get ALL
             var stcrl = new StudentsController();
             var students = stcrl.GetAll();
             foreach (var s in students) {
                 Console.WriteLine($"{s.Firstname} {s.Lastname}");
-
             }
+            //Update / Change
+            var std = stcrl.GetByPk(6);
+            std.Firstname = "AndreaNicole";
+            stcrl.Change(std);
+
+
+            //Delete / Remove
+            var studentDeleted = stcrl.Remove(std.Id);
+
 
             //Get by Primary Key
-            var spk = stcrl.GetByPk(1);
+            var spk = stcrl.GetByPk(6);
                 if(spk == null){
                 Console.WriteLine("Not Found");
             } else {
                 Console.WriteLine($"{spk.Firstname} {spk.Lastname}");
             }
 
+
             //Insert / Create
-            var sAndrea = new Student {
-                Id = 0, Firstname = "Andrea", Lastname = "Davis", StateCode = "OH",
-                Gpa = 3.0m, Sat = 900, MajorId = 1
-            };
-            var sAndreaNew = stcrl.Create(sAndrea);
-             Console.WriteLine($"{sAndreaNew.Id} {sAndreaNew.Gpa} {sAndreaNew.Firstname } {sAndreaNew.Lastname}");
+            //var sAndrea = new Student {
+            //    Id = 0, Firstname = "Andrea", Lastname = "Davis", StateCode = "OH",
+            //    Gpa = 3.0m, Sat = 900, MajorId = 1
+            // };
+            //var sAndreaNew = stcrl.Create(sAndrea);
+            // Console.WriteLine($"{sAndreaNew.Id} {sAndreaNew.Gpa} {sAndreaNew.Firstname } {sAndreaNew.Lastname}");
+
+            
             
 
             
