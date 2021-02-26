@@ -25,10 +25,10 @@ namespace EntityFrameworkTutorial {
             //Insert / Create
             var sAndrea = new Student {
                 Id = 0, Firstname = "Andrea", Lastname = "Davis", StateCode = "OH",
-                Gpa = 3.0m, Sat = 1500, MajorId = 1
+                Gpa = 3.0m, Sat = 900, MajorId = 1
             };
             var sAndreaNew = stcrl.Create(sAndrea);
-             Console.WriteLine($"{sAndreaNew.Id} {sAndreaNew.Firstname } {sAndreaNew.Lastname}");
+             Console.WriteLine($"{sAndreaNew.Id} {sAndreaNew.Gpa} {sAndreaNew.Firstname } {sAndreaNew.Lastname}");
             
 
             
