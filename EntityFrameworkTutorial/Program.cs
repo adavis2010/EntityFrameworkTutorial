@@ -31,15 +31,15 @@ namespace EntityFrameworkTutorial {
            // }
         
 
-            //CLASS EXERCISE 1 Join students and Majors. Print Name and Major
+            //CLASS EXERCISE-- Join students and Majors. Print Name and Major (inner join)
             var allstudents = (from s in _context.Students
                               join m in _context.Majors
-                               on s.MajorId equals m.Id
+                              on s.MajorId equals m.Id
                               select new {
                                   Name = s.Firstname + " " + s.Lastname,
                                   Major = s.MajorId == null ? "Undeclared" : m.Description
                               }).ToList();
-                  allstudents.ForEach(s => Console.WriteLine($"{s.Name}-{s.Major}"));
+                  allstudents.ForEach(s => Console.WriteLine($"{s.Name}- {s.Major}"));
 
 
 
