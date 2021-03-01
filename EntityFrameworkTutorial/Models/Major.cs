@@ -20,5 +20,9 @@ namespace EntityFrameworkTutorial.Models
 
         public virtual ICollection<MajorClass> MajorClasses { get; set; }
         public virtual ICollection<Student> Students { get; set; }
+
+        internal object GetByPk(int v) {
+            throw new NotImplementedException();
+        }
     }
 }

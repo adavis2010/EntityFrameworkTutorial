@@ -1,8 +1,10 @@
 ﻿using EntityFrameworkTutorial.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EntityFrameworkTutorial {
     public class StudentsController {
@@ -26,18 +28,20 @@ namespace EntityFrameworkTutorial {
         }
 
         //Get All Method
-        public IEnumerable<Student> GetAll() {
+        //Turn into Asynchronous Method 3/1
+        public async Task<IEnumerable<Student>> GetAll() {
             //pick collection
-            return _context.Students.ToList();
+            return await _context.Students.ToListAsync();
         }
 
         //Get by Primary Key
-        public Student GetByPk(int id) {
-            return _context.Students.Find(id);
+        //Turn into Asynchronous Method 3/1
+        public async Task<Student> GetByPk(int id) {
+            return await _context.Students.FindAsync(id);
         }
 
         //Insert (Create)
-        public Student Create(Student student) {
+        public async Task<Student> Create(Student student) {
             if (student == null) {
                 throw new Exception("Student cannot be null!");
             }
@@ -45,7 +49,7 @@ namespace EntityFrameworkTutorial {
                 throw new Exception("Student.Id must be zero!");
             }
             _context.Students.Add(student);
-            var rowsAffected = _context.SaveChanges();
+            var rowsAffected =  await _context.SaveChangesAsync();
             if (rowsAffected != 1) {
                 throw new Exception("Insert/Create failed");
             }
@@ -53,15 +57,15 @@ namespace EntityFrameworkTutorial {
         }
 
         //Update (Change)
-        public void Change(Student student) {
+        public async Task Change(Student student) {
             if (student == null) {
                 throw new Exception("Student cannot be null!");
             }
             if (student.Id <= 0) {
                 throw new Exception("Student.Id must be greater than zero!");
             }
-            _context.Entry(student).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            var rowsAffected = _context.SaveChanges();
+             _context.Entry(student).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            var rowsAffected = await _context.SaveChangesAsync();
             if (rowsAffected != 1) { 
                 throw new Exception("Change failed");
             }
@@ -69,13 +73,13 @@ namespace EntityFrameworkTutorial {
         }
 
         //Delete (Remove)
-        public Student Remove(int id) {
-            var student = _context.Students.Find(id);
+        public async Task <Student> Remove(int id) {
+            var student = await _context.Students.FindAsync(id);
             if(student == null) {
                 return null;
             }
             _context.Students.Remove(student);
-            var rowsAffected = _context.SaveChanges();
+            var rowsAffected = await _context.SaveChangesAsync();
             if (rowsAffected != 1) {
                 throw new Exception("Remove Failed");
             }
